@@ -13,7 +13,7 @@ var questionTitle = document.querySelector('#question-title');
 
 
 var win = false;
-var timer;
+var timer ;
 var timerCount;
 var correctAnswer;
 var currentQuestionIndex = 0;
@@ -32,7 +32,7 @@ function startQuiz() {
   }
 
  //The setTimer function starts and stops the timer and triggers winGame() and loseGame()
-function startTimer() {
+ function startTimer() {
     //Sets timer
     timer = setInterval(function() {
       timerCount--;
@@ -44,18 +44,13 @@ function startTimer() {
           clearInterval(timer);
           winGame();
         }
-        if (correctAnswer !== true) {
-          timer = setInterval(function() {
-            timerCount-10;
-            timerElement.textContent = timerCount;
-          })
-        }
       }
+      
       //  if time has run out game over
-      if (timerCount === 0) {
+      if (timerCount <= 0) {
         // Clears interval
         clearInterval(timer);
-        loseGame();
+        endQuiz();
       }
     }, 1000);
   }
@@ -81,13 +76,46 @@ function startTimer() {
     
   }
 
-  // function to handle answers- check for correct and wrong answer
-  // move to the next question 
-  //end the quiz 
 
-  function handleAnswers() {
+  // function to handle answers 
+  //function handleAnswers() {
+    //var userAnswer = document.querySelector('button[value=]');
+    //var correctAnswer = myQuestions(currentQuestionIndex).correctAnswer;
+//check for right or wrong answer
+    //if (userAnswer === correctAnswer) {
+      
+      
+    //} else {
+      //timeLeft-=10;
+      
+    //}
+//continue to next question or end quiz
+currentQuestionIndex ++;
+    if (currentQuestionIndex < myQuestions.length) {
+      askQuestion(currentQuestionIndex);
+      
+    } else {
+      endQuiz()
+    }
 
-  }
+  //}
+
+  function endQuiz() {
+
+    clearInterval = timer
+    // Hide the question section and show the end screen
+  document.querySelector('#questions').classList.add('hide');
+  document.querySelector('#end-screen').classList.remove('hide');
+
+  // Calculate the final score
+  var finalScore = timerCount;
+
+  // Display the final score
+  document.querySelector('#final-score').textContent = finalScore;
+ }
+
+
+  
     
 
     
