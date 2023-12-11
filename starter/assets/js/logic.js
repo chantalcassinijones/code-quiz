@@ -1,4 +1,3 @@
-//A start button that when clicked a timer starts 
 //and the first question appears.
 //Questions contain buttons for each answer.
 //When answer is clicked, the next question appears
@@ -9,35 +8,52 @@
 
 // calling elements needed and creating variables
 
-var startButton = document.querySelector('.start-button');
+var startButton = document.querySelector('#start-button');
 var timerElement = document.querySelector('#time');
+var questionTitle = document.querySelector('#question-title');
+ var multipleChoices = document.querySelector('#choices');
+//var questions = document.querySelector('#questions');
 
 var win = false;
 var timer;
 var timerCount;
+var correctAnswer;
+var currentQuestionIndex = 0;
 
-// The startGame function is called when the start button is clicked
-function startGame() {
-    win = false;
-    timerCount = 100;
-    startTimer()
+ //The startGame function is called when the start button is clicked and 
+ //two things happen: countdown starts and 1st question is displayed 
+function startQuiz() {
+  //hides the start screen and shows the first question
+  document.querySelector('#start-screen').classList.add('hide');
+  document.querySelector('#questions').classList.remove('hide');
+  //sets the starting time
+   timerCount = 75;
+   //starts the timer function
+    startTimer();
+    askQuestion();
   }
 
-// The setTimer function starts and stops the timer and triggers winGame() and loseGame()
+ //The setTimer function starts and stops the timer and triggers winGame() and loseGame()
 function startTimer() {
-    // Sets timer
+    //Sets timer
     timer = setInterval(function() {
       timerCount--;
       timerElement.textContent = timerCount;
       if (timerCount >= 0) {
-        // Tests if win condition is met
+        //  if win condition is met
         if (win && timerCount > 0) {
           // Clears interval and stops timer
           clearInterval(timer);
           winGame();
         }
+        if (correctAnswer !== true) {
+          timer = setInterval(function() {
+            timerCount-10;
+            timerElement.textContent = timerCount;
+          })
+        }
       }
-      // Tests if time has run out
+      //  if time has run out game over
       if (timerCount === 0) {
         // Clears interval
         clearInterval(timer);
@@ -45,6 +61,23 @@ function startTimer() {
       }
     }, 1000);
   }
+
+  //the askQuestion function asks questions each time a question is answered
+  function askQuestion() {
+  }
+
+  // function to handle answers- check for correct and wrong answer
+  // move to the next question 
+  //end the quiz 
+
+  function handleAnswers() {
+
+  }
+    
+
+    
+
+  
   // event listener to start button to call startGame function on click
-  startButton.addEventListener("click", startGame);
+  startButton.addEventListener("click", startQuiz);
     
