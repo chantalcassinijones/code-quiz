@@ -1,5 +1,3 @@
-//and the first question appears.
-//Questions contain buttons for each answer.
 //When answer is clicked, the next question appears
 //If the answer clicked was incorrect then subtract time from the clock
 //The quiz should end when all questions are answered or the timer reaches 0.
@@ -12,7 +10,7 @@ var startButton = document.querySelector('#start-button');
 var timerElement = document.querySelector('#time');
 var questionTitle = document.querySelector('#question-title');
  var multipleChoices = document.querySelector('#choices');
-//var questions = document.querySelector('#questions');
+
 
 var win = false;
 var timer;
@@ -30,7 +28,7 @@ function startQuiz() {
    timerCount = 75;
    //starts the timer function
     startTimer();
-    askQuestion();
+    askQuestion(currentQuestionIndex);
   }
 
  //The setTimer function starts and stops the timer and triggers winGame() and loseGame()
@@ -63,7 +61,24 @@ function startTimer() {
   }
 
   //the askQuestion function asks questions each time a question is answered
-  function askQuestion() {
+  function askQuestion(questionIndex) {
+      // Clear previous question and choices
+  questionTitle.textContent = '';
+  multipleChoices.innerHTML = '';
+
+  // Display the question
+  questionTitle.textContent = myQuestions[questionIndex].question;
+
+  // Create and append the choices
+  var answers = myQuestions[questionIndex].answers;
+//iterating over the multiple choice answers for each question
+    for (var option in answers) {
+     var button = document.createElement('button'); //create a button to make choices selectable
+      button.textContent = answers[option];
+      button.setAttribute('value', option);
+      multipleChoices.appendChild(button);
+  }
+    
   }
 
   // function to handle answers- check for correct and wrong answer
@@ -78,6 +93,7 @@ function startTimer() {
     
 
   
-  // event listener to start button to call startGame function on click
+  // event listeners to start functions
   startButton.addEventListener("click", startQuiz);
+  button.addEventListener('click', handleAnswers);
     
