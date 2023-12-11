@@ -1,4 +1,4 @@
-var questions = [
+var myQuestions = [
     {
         question: 'Commonly used data types do not include:',
         answers: {
