@@ -1,11 +1,14 @@
-// calling elements needed and creating variables
+// calling elements needed and creating global variables
 
 var startButton = document.querySelector('#start-button');
 var timerElement = document.querySelector('#time');
 var questionTitle = document.querySelector('#question-title');
- var multipleChoices = document.querySelector('#choices');
- var feedback = document.querySelector('#feedback');
- var submitButton = document.querySelector('#submit');
+var multipleChoices = document.querySelector('#choices');
+var feedback = document.querySelector('#feedback');
+var submitButton = document.querySelector('#submit');
+var initials = document.querySelector('#initials');
+var highscores = document.querySelector('#highscores');
+
 var timerCount;
 var timer;
 var currentQuestionIndex = 0;
@@ -83,9 +86,9 @@ function startQuiz() {
     feedback.textContent = '';
     var correctAnswer = myQuestions[currentQuestionIndex].correctAnswer;
    if (userAnswer === correctAnswer) {
-      giveFeedback('Right answer!');
+      giveFeedback('Correct!');
     } else {
-     giveFeedback('Wrong answer!');
+     giveFeedback('Wrong!');
       // Subtract 10 from the timer 
       timerCount -= 10;
     }
@@ -110,17 +113,17 @@ function startQuiz() {
   // Display the final score
   document.querySelector('#final-score').textContent = finalScore;
  }
-// give the user the ability to save their initials and their score
- function saveScore() {
-  var initialsInput = document.querySelector('#initials');
-  var finalScoreInput = document.querySelector('#final-score');
-  var initials = initialsInput.value;
-  var finalScore = finalScoreInput.value;
-  localStorage.setItem('initials', initials);
-  localStorage.setItem('finalScore', finalScore);
 
- };
- // event listeners to start functions
+ // Function to remember the highscore
+function saveHighscore() {
+  var finalScore = timerCount;
+  // Store the highscore in the browser's local storage
+  localStorage.setItem('highscore', finalScore);
+  localStorage.setItem('initials', initials.value);
+}
+// event listeners to start functions
   startButton.addEventListener('click', startQuiz);
-  submitButton.addEventListener('click', saveScore);
-    
+  submitButton.addEventListener('click', saveHighscore);
+  
+  
+  
