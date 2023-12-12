@@ -1,8 +1,3 @@
-
-//If the answer clicked was incorrect then subtract time from the clock
-//The quiz should end when all questions are answered or the timer reaches 0.
-// give the user the ability to save their initials and their score
-
 // calling elements needed and creating variables
 
 var startButton = document.querySelector('#start-button');
@@ -10,6 +5,7 @@ var timerElement = document.querySelector('#time');
 var questionTitle = document.querySelector('#question-title');
  var multipleChoices = document.querySelector('#choices');
  var feedback = document.querySelector('#feedback');
+ var submitButton = document.querySelector('#submit');
 var timerCount;
 var timer;
 var currentQuestionIndex = 0;
@@ -46,7 +42,7 @@ function startQuiz() {
   function askQuestion(questionIndex) {
       // Clear previous question and choices
     questionTitle.textContent = '';
-    feedback.textContent = '';
+    //feedback.textContent = '';
     multipleChoices.innerHTML = '';
   // Display the question
   questionTitle.textContent = myQuestions[questionIndex].question;
@@ -70,7 +66,7 @@ function startQuiz() {
 
   // function to handle answers 
   function handleAnswers() {
-    var userAnswer = this.value;
+   var userAnswer = this.value;
     //check if answer is correct 
     checkAnswer(userAnswer);
    currentQuestionIndex ++;
@@ -83,10 +79,10 @@ function startQuiz() {
   }
 
   function checkAnswer(userAnswer) {
-    
+    //clears previous feedback
+    feedback.textContent = '';
     var correctAnswer = myQuestions[currentQuestionIndex].correctAnswer;
-  
-    if (userAnswer === correctAnswer) {
+   if (userAnswer === correctAnswer) {
       giveFeedback('Right answer!');
     } else {
      giveFeedback('Wrong answer!');
@@ -95,10 +91,10 @@ function startQuiz() {
     }
   }
   
-  function giveFeedback() {
+  function giveFeedback(message) {
     // show the feedback section
     document.querySelector('#feedback').classList.remove('hide');
-    feedback.textContent = '';
+    feedback.textContent = message;
   }
   
 
@@ -114,7 +110,17 @@ function startQuiz() {
   // Display the final score
   document.querySelector('#final-score').textContent = finalScore;
  }
+// give the user the ability to save their initials and their score
+ function saveScore() {
+  var initialsInput = document.querySelector('#initials');
+  var finalScoreInput = document.querySelector('#final-score');
+  var initials = initialsInput.value;
+  var finalScore = finalScoreInput.value;
+  localStorage.setItem('initials', initials);
+  localStorage.setItem('finalScore', finalScore);
+
+ };
  // event listeners to start functions
-  startButton.addEventListener("click", startQuiz);
-  
+  startButton.addEventListener('click', startQuiz);
+  submitButton.addEventListener('click', saveScore);
     
