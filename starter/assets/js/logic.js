@@ -45,7 +45,6 @@ function startQuiz() {
   function askQuestion(questionIndex) {
       // Clear previous question and choices
     questionTitle.textContent = '';
-    //feedback.textContent = '';
     multipleChoices.innerHTML = '';
   // Display the question
   questionTitle.textContent = myQuestions[questionIndex].question;
@@ -80,7 +79,7 @@ function startQuiz() {
     askQuestion(currentQuestionIndex);
   }
   }
-
+ //function to check if answer is right or wrong
   function checkAnswer(userAnswer) {
     //clears previous feedback
     feedback.textContent = '';
@@ -94,27 +93,26 @@ function startQuiz() {
     }
   }
   
+  //function to allow feedback to show
   function giveFeedback(message) {
     // show the feedback section
     document.querySelector('#feedback').classList.remove('hide');
     feedback.textContent = message;
   }
   
-
+//function to end quiz, timer and final score
  function endQuiz() {
   clearInterval(timer);
     // Hide the question section and show the end screen
   document.querySelector('#questions').classList.add('hide');
   document.querySelector('#end-screen').classList.remove('hide');
-
-  // Calculate the final score
+// Calculate the final score
   var finalScore = timerCount;
-
-  // Display the final score
+// Display the final score
   document.querySelector('#final-score').textContent = finalScore;
  }
 
- // Function to remember the highscore
+ // Function to remember and save the highscore in local storage
 function saveHighscore() {
   var finalScore = timerCount;
   // Store the highscore in the browser's local storage
@@ -124,6 +122,5 @@ function saveHighscore() {
 // event listeners to start functions
   startButton.addEventListener('click', startQuiz);
   submitButton.addEventListener('click', saveHighscore);
-  
   
   
