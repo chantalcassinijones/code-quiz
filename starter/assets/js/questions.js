@@ -27,7 +27,7 @@ var myQuestions = [
           c: 'intervalOver',
           d: 'None of the above'
         },
-        correctAnswer: 'c'
+        correctAnswer: 'b'
       },
       {
         question: 'Which function is used to serialize an object into a JSON string in Javascript?',
